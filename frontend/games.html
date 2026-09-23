@@ -293,8 +293,8 @@
     // 參照語綺 app.js 規格定義 5 款遊戲與進度正規化
     const GAMES = [
       { id: "DCCS", name: "賽道攔截", desc: "維度轉換與認知彈性評測", icon: "🏎️" },
-      { id: "EFT", name: "瓢蟲追擊令", desc: "視覺搜尋與圓形認知評測", icon: "🐞" },
-      { id: "DAT", name: "漂浮泡泡", desc: "持續性注意力評測", icon: "🫧" },
+      { id: "DAT", name: "瓢蟲追擊令", desc: "視覺搜尋與圓形認知評測", icon: "🐞" },
+      { id: "EFT", name: "漂浮泡泡", desc: "持續性注意力評測", icon: "🫧" },
       { id: "TGame", name: "勇闖迷宮", desc: "空間認知與路線規劃評測", icon: "🧭" },
       // id 必須是 "IM"，對齊後端 assessment_result.game_type 實際會出現的值
       // （見 GET /api/students/{key}/sessions 回應），不能是隨便取的顯示名稱，
@@ -322,6 +322,7 @@
     // 每一款遊戲對應到哪個檔案（相對於本頁）。每接上一款新遊戲，在這裡加一行即可，
     // 不用動下面的點擊邏輯。路徑對照 frontend/<game>/ 底下該遊戲自己的入口檔案。
     const GAME_PAGES = {
+      DAT: { single: "DAT/DAT_single/index.html", double: "DAT/DAT_double/double.html" },
       DCCS: { single: "dccs/index.html", double: "dccs/double.html" },
     };
 
