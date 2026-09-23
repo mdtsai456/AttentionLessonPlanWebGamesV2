@@ -267,58 +267,6 @@ function endQuestion() {
   }
 }
 
-function finishGame() {
-  phase = 'finished';
-  keys.clear(); pointerDirections.clear();
-  $('pause').disabled = true;
-  $('final-score').textContent = `${score} / ${questions.length} 分`;
-  $('summary').textContent = `誤按 ${wrong} 題・判斷正確但未瞄準 ${offTarget} 題・漏答 ${timedOut} 題`;
-  $('accuracy').textContent = `得分率 ${Math.round(score / questions.length * 100)}%`;
-
-  const $startGameBtn =$('btn-start-game'); // 取得結束選單的第二個按鈕
-
-  if (isPractice) {
-    $('result-title').textContent = '練習結束';
-    
-    // 按鈕一：再練習一次
-    $('restart').textContent = '再練習一次';
-    $('restart').onclick = startGame;
-
-    // 按鈕二：進入正式遊戲
-    if ($startGameBtn) {$startGameBtn.hidden = false;
-      $startGameBtn.textContent = '進入正式遊戲';
-      $startGameBtn.onclick = () => {
-        window.location.href = 'index.html?mode=game';
-      };
-    }
-  } else {
-    $('result-title').textContent = '挑戰完成！';
-    
-    // 按鈕一：再玩一次
-    $('restart').textContent = '再玩一次';
-    $('restart').onclick = startGame;
-
-    // 按鈕二：返回遊戲大廳 (跳轉到 games.html)
-    if ($startGameBtn) {$startGameBtn.hidden = false;
-      $startGameBtn.textContent = '返回遊戲大廳';
-      $startGameBtn.onclick = () => {
-        window.location.href = '../../games.html';
-      };
-    }
-
-    // 呼叫 API 上傳資料庫 (僅正式模式)
-    saveGameDataToBackend({
-      score: score,
-      wrong: wrong,
-      offTarget: offTarget,
-      timedOut: timedOut,
-      accuracy: Math.round(score / questions.length * 100)
-    });
-  }
-
-  $('results').hidden = false; 
-}
-
 // 寫入後端 API (預留介面)
 // 寫入中介平台 / 資料庫 API
 function finishGame() {
@@ -350,7 +298,7 @@ function finishGame() {
     if ($startGameBtn) {$startGameBtn.hidden = false;
       $startGameBtn.textContent = '返回遊戲大廳';
       $startGameBtn.onclick = () => {
-        window.location.href = '../../games.html';
+        window.location.href = '../games.html';
       };
     }
 
@@ -370,7 +318,7 @@ function finishGame() {
 }
 
 async function saveGameDataToBackend(data) {
-  const url = "http://127.0.0.1:5002/api/sessions";//https://attention-lesson-plan-transfer-data.zeabur.app/api/sessions
+  const url = "http://127.0.0.1:5001/api/sessions";//https://attention-lesson-plan-transfer-data.zeabur.app/api/sessions
 
 
   const grade = sessionStorage.getItem('grade') || 'G1';

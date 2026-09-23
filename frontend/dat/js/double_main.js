@@ -1,6 +1,6 @@
 // js/main.js
-import { generateUUID } from './api.js';
-import { createPlayer } from './game.js';
+import { generateUUID } from './double_api.js';
+import { createPlayer } from './double_game.js';
 
 let playerPracticeFinished = [false, false];
 let currentGamePairId = "";
@@ -53,7 +53,7 @@ document.querySelectorAll('[data-ui="back-home"]').forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    safeNavigateTo('../../games.html');
+    safeNavigateTo('../games.html');
   });
 });
 
@@ -62,7 +62,7 @@ if (btnConfirmLeave) {
   btnConfirmLeave.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    safeNavigateTo('../../games.html');
+    safeNavigateTo('../games.html');
   });
 }
 

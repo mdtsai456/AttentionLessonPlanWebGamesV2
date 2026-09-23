@@ -1,5 +1,5 @@
-import { sendSessionToApi } from './api.js';
-import { generateQuestionSet } from './questions.js';
+import { sendSessionToApi } from './double_api.js';
+import { generateQuestionSet } from './double_questions.js';
 
 export const ROUND_MS = 1 * 1000;//秒數
 export const AIM_SPEED = 45;
@@ -14,7 +14,7 @@ export function createPlayer(element, bindings, answerCodes, answerLabel, player
     backHomeBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      getState().safeNavigateTo('../../games.html');
+      getState().safeNavigateTo('../games.html');
     });
   }
 
