@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.uv/
+
+# 本機測試/開發用的資料庫檔（例如 frontend/*/local_test.db），不該進版控
+*.db
+*.sqlite
+*.sqlite3
+
+# 環境變數
+.env
+
+# 編輯器/系統雜訊
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
