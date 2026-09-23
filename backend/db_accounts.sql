@@ -65,7 +65,14 @@ GRANT INSERT, DELETE ON AttentionLessonPlan.login_session TO 'game_writer'@'%';
 -- ----------------------------------------------------------------------------
 CREATE USER IF NOT EXISTS 'seeder'@'%' IDENTIFIED BY 'CHANGE_ME_seeder_password';
 
-GRANT SELECT, INSERT, DELETE, CREATE ON AttentionLessonPlan_test.* TO 'seeder'@'%';
+-- UPDATE：seed.py／seed_directory.py 灌完資料後要回填 student.account／
+-- teacher.account+password_hash（帳號要等 AUTO_INCREMENT 產生 id 後才算得出來，
+-- 沒辦法在 INSERT 當下一起塞），另外 seed_directory.py 用 INSERT ... ON
+-- DUPLICATE KEY UPDATE 灌 school/teacher 名錄也需要 UPDATE。
+-- ALTER：兩支腳本重跑前都會 ALTER TABLE ... AUTO_INCREMENT = 1，讓測試帳號
+-- 固定從 S0001／T0001 開始，不會每次重跑就往上長。
+-- 缺這兩項時腳本會在這些語句上被拒絕，導致帳號沒回填、學生/老師登不進去。
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER ON AttentionLessonPlan_test.* TO 'seeder'@'%';
 
 -- ----------------------------------------------------------------------------
 -- 4. root —— 維持全權，只留人工維運，不進任何部署環境變數。

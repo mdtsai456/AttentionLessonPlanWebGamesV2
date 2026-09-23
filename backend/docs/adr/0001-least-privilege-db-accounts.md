@@ -15,7 +15,7 @@
 | 帳號 | 權限 | 綁定庫 | 給誰 |
 |---|---|---|---|
 | `app_ro` | `SELECT` | `AttentionLessonPlan`(正式) | 部署在 Zeabur 的讀取 API |
-| `seeder` | `SELECT, INSERT, DELETE, CREATE` | **只** `AttentionLessonPlan_test` | `seed.py`(預設)+ 測試套件 |
+| `seeder` | `SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER` | **只** `AttentionLessonPlan_test` | `seed.py`(預設)+ 測試套件 |
 | `root` | 全權 | 全域 | 只人工維運;正式庫的灌注也走它 |
 
 **關鍵取捨 —— `seeder` 只綁 `_test`,不給正式庫。** 正式庫的「先清空再灌」改由
@@ -38,6 +38,13 @@ root 手動執行。理由:`seeder` 是每天跑測試、且會被編進測試�
 
 ## 後續實施
 
+- 2026-09-23 補上 `seeder` 的 `UPDATE, ALTER`：原本只給 `SELECT, INSERT,
+  DELETE, CREATE`，但 `seed.py`／`seed_directory.py`(teacher-directory-login
+  設計上線後)需要 `UPDATE`(回填 `student.account`／`teacher.account`+
+  `password_hash`，以及 `INSERT ... ON DUPLICATE KEY UPDATE` 灌 school/teacher
+  名錄)與 `ALTER`(重跑前 `ALTER TABLE ... AUTO_INCREMENT = 1`)。缺這兩項時
+  腳本會在這些語句上被拒絕、帳號回填不完整，導致用 `seeder` 帳密重新灌資料的
+  人(例如新加入的學弟妹)完全無法登入。已在 DB 端與 `db_accounts.sql` 補齊。
 - 2026-07-16 已建立 `game_writer`，只對正式庫的 `student`、
   `assessment_result` 與五張遊戲結果表授予 `INSERT`。GET 與 POST 在 app 內使用
   獨立 read/write connections；`app_ro`/`seeder` 權限不變。
