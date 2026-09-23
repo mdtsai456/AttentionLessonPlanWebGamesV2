@@ -288,7 +288,7 @@ function finishGame() {
     if ($startGameBtn) {$startGameBtn.hidden = false;
       $startGameBtn.textContent = '進入正式遊戲';
       $startGameBtn.onclick = () => {
-        window.location.href = 'DAT_single.html?mode=game';
+        window.location.href = 'index.html?mode=game';
       };
     }
   } else {
@@ -302,7 +302,7 @@ function finishGame() {
     if ($startGameBtn) {$startGameBtn.hidden = false;
       $startGameBtn.textContent = '返回遊戲大廳';
       $startGameBtn.onclick = () => {
-        window.location.href = '../games.html';
+        window.location.href = '../../games.html';
       };
     }
 
@@ -339,7 +339,7 @@ function finishGame() {
     if ($startGameBtn) {$startGameBtn.hidden = false;
       $startGameBtn.textContent = '進入正式遊戲';
       $startGameBtn.onclick = () => {
-        window.location.href = 'DAT_single.html?mode=game';
+        window.location.href = 'index.html?mode=game';
       };
     }
   } else {
@@ -350,7 +350,7 @@ function finishGame() {
     if ($startGameBtn) {$startGameBtn.hidden = false;
       $startGameBtn.textContent = '返回遊戲大廳';
       $startGameBtn.onclick = () => {
-        window.location.href = '../games.html';
+        window.location.href = '../../games.html';
       };
     }
 
