@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>泡泡方向遊戲｜單人模式</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body data-game-mode="single">
+    <main class="game" aria-label="泡泡方向遊戲">
+      <section class="start-screen" id="start-screen" aria-labelledby="start-title">
+        <p class="eyebrow">BUBBLE FOCUS</p>
+        <h1 id="start-title">泡泡方向遊戲</h1>
+        <p>單人模式</p>
+        <div class="start-actions">
+          <button id="start-button" type="button">開始遊戲</button>
+        </div>
+      </section>
+
+      <section class="play-screen is-hidden" id="play-screen" aria-label="遊戲畫面">
+        <header class="hud">
+          <div class="hud-score hud-score--left"><span>左側分數</span><output id="left-score-display">0</output></div>
+          <div class="hud-center">
+            <div class="timer-group"><span id="timer-label">剩餘時間</span><time id="timer-display" datetime="PT10M">10:00</time></div>
+            <p class="instruction" id="instruction-display">左側：WASD 或方向鍵</p>
+          </div>
+          <div class="hud-score hud-score--right"><span id="right-score-label">右側分數</span><output id="right-score-display">0</output>
+            <button id="practice-skip-button" class="practice-skip-button is-hidden" type="button">Skip</button>
+            <button id="leave-game-button" class="leave-game-button" type="button">離開遊戲</button>
+          </div>
+        </header>
+        <section class="player-layout">
+          <div class="player-panel player-panel--left">
+            <div class="player-label"></div>
+            <canvas id="left-arena" class="game-arena" aria-label="左側玩家遊戲區域"></canvas>
+            <div id="left-feedback" class="player-feedback" aria-live="polite"></div>
+          </div>
+          <div class="player-panel player-panel--right">
+            <div class="player-label"></div>
+            <canvas id="right-arena" class="game-arena" aria-label="右側玩家遊戲區域"></canvas>
+            <div id="right-feedback" class="player-feedback" aria-live="polite"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <div id="feedback-flash" class="feedback-message" aria-hidden="true"></div>
+
+    <div class="overlay is-hidden" id="instructions-overlay" role="dialog" aria-modal="true" aria-labelledby="instructions-title">
+      <section class="instructions-panel">
+        <p class="eyebrow">HOW TO PLAY</p>
+        <h1 id="instructions-title">遊玩方式</h1>
+        <img class="instructions-image-placeholder" src="./public/images/tutorial.png" alt="操作示意圖片" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover;"/>
+        <p>觀察發亮的目標氣泡，依照氣泡上的方向按下對應按鍵。</p>
+        <p>玩家可使用 WASD 或方向鍵操作。</p>
+        <div class="instruction-actions">
+          <button id="close-instructions-button" type="button">確認</button>
+          <button id="instruction-skip-button" class="instruction-skip-button" type="button">Skip</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="overlay is-hidden" id="start-countdown-overlay" role="status" aria-live="assertive">
+      <section class="start-countdown-panel">
+        <h1>正式開始!</h1>
+        <output id="start-countdown-value">3</output>
+      </section>
+    </div>
+
+    <div class="overlay is-hidden" id="level-overlay" role="dialog" aria-modal="true" aria-labelledby="level-title">
+      <section class="instructions-panel">
+        <p class="eyebrow">LEVEL BREAK</p>
+        <h1 id="level-title">第 1 關完成</h1>
+        <p id="level-message">準備進入下一關。</p>
+        <button id="next-level-button" type="button">進入下一關</button>
+      </section>
+    </div>
+
+    <div
+      class="overlay is-hidden"
+      id="result-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="result-title"
+    >
+      <section class="result-panel">
+        <p class="eyebrow">TIME'S UP</p>
+        <h1 id="result-title">遊戲結束</h1>
+        <div class="results-grid">
+          <section class="result-player" id="left-result">
+            <h2 id="left-result-title">玩家1</h2>
+            <output class="final-score" id="left-final-score">0</output>
+            <dl class="stats-grid">
+              <div><dt>正確率</dt><dd id="left-accuracy-display">0%</dd></div>
+              <div><dt>平均反應時間</dt><dd id="left-average-reaction-display">--</dd></div>
+              <div><dt>正確平均反應時間</dt><dd id="left-correct-reaction-display">--</dd></div>
+              <div><dt>最高連擊</dt><dd id="left-max-combo-display">0</dd></div>
+            </dl>
+          </section>
+          <section class="result-player" id="right-result">
+            <h2 id="right-result-title">玩家2</h2>
+            <output class="final-score" id="right-final-score">0</output>
+            <dl class="stats-grid">
+              <div><dt>正確率</dt><dd id="right-accuracy-display">0%</dd></div>
+              <div><dt>平均反應時間</dt><dd id="right-average-reaction-display">--</dd></div>
+              <div><dt>正確平均反應時間</dt><dd id="right-correct-reaction-display">--</dd></div>
+              <div><dt>最高連擊</dt><dd id="right-max-combo-display">0</dd></div>
+            </dl>
+          </section>
+        </div>
+        <p id="result-save-status" class="result-save-status" aria-live="polite"></p>
+        <button id="restart-button" type="button">
+          返回設定
+        </button>
+      </section>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
