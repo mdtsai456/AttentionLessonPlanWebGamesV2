@@ -227,17 +227,7 @@ function finishGame() {
       };
     }
 
-    // 呼叫 API 上傳資料庫 (補齊 duration 與 stage)
-    saveGameDataToBackend({
-      score: score,
-      wrong: wrong,
-      offTarget: offTarget,
-      timedOut: timedOut,
-      accuracy: Math.round(score / questions.length * 100),
-      duration: Date.now() - gameStartTime, // 補上毫秒數
-      stage: STAGE_COUNT,                    // 補上總關卡數
-      startTime: gameStartTime
-    });
+    sendApiData();// 呼叫 API 上傳資料庫 
   }
 
   $('results').hidden = false; 
@@ -325,7 +315,28 @@ if (cancelLeaveBtn) {
 const confirmLeaveBtn = document.getElementById('btn-confirm-leave');
 if (confirmLeaveBtn) {
   confirmLeaveBtn.addEventListener('click', () => {
+    sendApiData();//中途離開也會上傳 db
     window.location.href = '../games.html'; // 或您頁面的首頁路徑
+  });
+}
+
+//發送至 single_api.js 的 JSON 資料
+function sendApiData() {
+  // 正式模式且有開始遊戲才發送
+  if (isPractice || !gameStartTime) return;
+
+  const now = Date.now();
+  const calculatedDuration = now - gameStartTime;
+
+  saveGameDataToBackend({
+    score: score,
+    wrong: wrong,
+    offTarget: offTarget,
+    timedOut: timedOut,
+    accuracy: questions.length > 0 ? Math.round((score / questions.length) * 100) : 0,
+    duration: calculatedDuration, // 自動以實際遊玩毫秒數當作 duration
+    stage: STAGE_COUNT,
+    startTime: gameStartTime
   });
 }
 

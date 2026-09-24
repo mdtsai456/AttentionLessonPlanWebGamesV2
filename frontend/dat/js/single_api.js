@@ -2,14 +2,14 @@
 export async function saveGameDataToBackend(data) {
   const url = "http://127.0.0.1:5001/api/sessions";
   //const url = "https://attention-lesson-plan-transfer-data.zeabur.app/api/sessions";
-
-  const grade = sessionStorage.getItem('grade') || 'G1';
-  const caseId = sessionStorage.getItem('caseId') || 'S03';
-  const school = sessionStorage.getItem('school') || 'KMU'; // ⚠️ 需嚴格符合 KMU 或 NTHU-01~07
+  const s1Id = sessionStorage.getItem("student1_key") || "訪客學生";
+  const grade = s1Id.split("_")[0];
+  const caseId = s1Id.split("_")[1];
+  const school = sessionStorage.getItem('student1_school') || 'KMU'; // ⚠️ 需嚴格符合 KMU 或 NTHU-01~07
   const currentDay = parseInt(sessionStorage.getItem('currentDay') || '1', 10);
 
   const payload = {
-    lessonId: "1140908_DAT",
+    lessonId: "1140908_DAT", //待確認
     data: {
       grade: grade,
       caseId: caseId,
@@ -34,7 +34,7 @@ export async function saveGameDataToBackend(data) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
     if (res.status === 201) {
