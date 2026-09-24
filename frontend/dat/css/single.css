@@ -419,3 +419,48 @@ button:disabled {
 .btn-continue:hover {
   background: #43a047;
 }
+
+.btn-danger {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 10px 50px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+
+/* ----------------------------------
+   中途離開警示彈窗與按鈕樣式
+---------------------------------- */
+.warning-text {
+  color: #c52c35;
+  font-size: 2cqw;
+  font-weight: bold;
+  margin: 1.5cqw 0;
+  line-height: 1.4;
+}
+
+.result-actions, .warning-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5cqw;
+  margin-top: 1.5cqw;
+}
+
+button.secondary {
+  background: #8c5828;
+  color: #fff;
+  border: none;
+  padding: 0.6em 1.5em;
+  border-radius: 1cqw;
+  font-size: 1.8cqw;
+  cursor: pointer;
+}
+
+/* 
+button.secondary:hover { background: #65462f; }
+button.danger:hover { background: #c9302c; } */

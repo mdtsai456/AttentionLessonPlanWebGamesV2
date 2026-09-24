@@ -1,66 +1,65 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DAT 動物追擊令・單人版</title>
-  <link rel="stylesheet" href="css/single.css">
-  <script src="assets/animals/rabbit-hit-mask.js" defer></script>
-  <script src="js/single.js" defer></script>
+  <title>DAT 動物追擊令 - 遊戲教學</title>
+  <link rel="stylesheet" href="css/single_tutorial.css">
+  <script src="js/single_tutorial.js" defer></script>
 </head>
 <body>
-  <main class="game" aria-label="動物追擊令單人遊戲">
-    <aside class="progress-panel">
-      <span class="progress-label">動物追擊令</span>
-      <div class="progress-track" id="progress" role="progressbar" aria-label="完成題數" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
-        <div id="progress-fill"></div>
+
+  <main class="tutorial-container">
+    
+    <!-- 畫面一：遊玩說明 -->
+    <section id="step-1" class="tutorial-card">
+      <div class="header-badge">動物追擊令</div>
+      <div class="card-content">
+        <p class="intro-text">
+          你是捕動物高手，準備抓住跑來跑去的動物！但要注意，瞄準開關只有「答對」才會有效！只有當這三件事對了，才能按下選擇鍵：
+        </p>
+        <ol class="rule-list">
+          <li>按鈕變了顏色</li>
+          <li>顏色的「名字」和「顏色」是一樣的</li>
+          <li>算式的答案是對的</li>
+        </ol>
+        <p class="warning-text">抓錯會浪費力氣喔～看準題目再抓才能獲得高分！</p>
       </div>
-    </aside>
-    <header class="score"><span>得分</span><strong id="score">0 分</strong></header>
-    <div class="round" id="round">第 1 / 4 題  (第 1 / 5 關)</div>
-    <button class="pause" id="pause" type="button" disabled>暫停</button>
-    <section class="question-panel" aria-label="判斷題目">
-      <div class="question"><span class="caption" id="question-type">等待瞄準</span><strong id="question-text">—</strong></div>
-      <div class="time"><span id="time-text">尚未開始</span><div class="time-track"><div id="time-fill"></div></div></div>
+      <button id="btn-to-step2" class="btn-green" type="button">繼續</button>
     </section>
-    <div class="animal-field" id="field" aria-label="動物與玩家準心">
-      <div class="animal" id="animal">
-        <img class="animal-image" id="animal-image" src="assets/animals/rabbit.png" alt="兔子" draggable="false">
+
+    <!-- 畫面二：題型說明 (動態卡片) -->
+    <section id="step-2" class="tutorial-card" hidden>
+      <div class="header-badge">題型說明</div>
+      <div class="card-content">
+        <p id="type-title" class="type-instruction">加載中...</p>
+        <p id="type-example" class="type-sub"></p>
+        
+        <div class="carousel-container">
+          <button id="prev-type" class="nav-arrow" type="button" aria-label="上一題">◀</button>
+          
+          <div class="type-preview-box" id="preview-box">
+            <!-- 預覽內容由 JS 動態渲染 -->
+          </div>
+          
+          <button id="next-type" class="nav-arrow" type="button" aria-label="下一題">▶</button>
+        </div>
       </div>
-      <img class="crosshair" id="crosshair" src="assets/crosshair.png" alt="玩家準心" draggable="false">
-    </div>
-    <section class="answer-panel" aria-label="作答區">
-      <p class="rule">方向鍵 / WASD 移動準心 · 正確按空白鍵，不正確不按</p>
-      <p id="feedback" role="status" aria-live="polite">素材載入中…</p>
-      <div class="answer-buttons">
-        <button class="capture" id="answer-true" type="button" disabled>正確 <span>空白鍵 / 點選</span></button>
+      <button id="btn-to-step3" class="btn-green-solid" type="button">跳過說明/下一步</button>
+    </section>
+
+    <!-- 畫面三：選擇練習還是直接開始 -->
+    <section id="step-3" class="tutorial-card" hidden>
+      <div class="card-content">
+        <h2 class="prompt-title">理解了嗎？<br>來練習一下吧！</h2>
+        <div class="action-buttons">
+          <button id="btn-practice" class="btn-outline" type="button">練習一下</button>
+          <button id="btn-start" class="btn-green-solid" type="button">不練習，直接開始</button>
+        </div>
       </div>
     </section>
-    <div class="movement" aria-label="準心方向控制">
-      <button data-move="up" aria-label="準心向上">↑</button>
-      <button data-move="left" aria-label="準心向左">←</button>
-      <button data-move="down" aria-label="準心向下">↓</button>
-      <button data-move="right" aria-label="準心向右">→</button>
-    </div>
-    <div class="overlay" id="results" hidden>
-      <section class="result-card" role="dialog" aria-modal="true" aria-labelledby="result-title">
-        <h1 id="result-title">挑戰完成！</h1>
-        <strong id="final-score"></strong>
-        <p id="summary"></p>
-        <p id="accuracy"></p>
-        <button class="primary" id="restart" type="button">再玩一次</button>
-        <button class="primary" id="btn-start-game" hidden>進入正式遊戲</button>
-      </section>
-    </div>
-    <!-- 換關卡的 overlay -->
-<!-- 換關卡彈窗面板 -->
-    <div id="stage-clear-modal" class="modal-overlay" hidden>
-      <div class="stage-clear-card">
-        <div class="stage-title-badge" id="stage-clear-title">第 1 關結束</div>
-        <div class="stage-clear-text">準備開始下一關嘍！</div>
-        <button id="btn-next-stage" class="btn-continue">繼續</button>
-      </div>
-    </div>
+
   </main>
+
 </body>
 </html>

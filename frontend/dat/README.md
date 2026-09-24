@@ -1,9 +1,9 @@
 # 檔案結構 (還在慢慢修改中)
 frontend/
 └── dat/
-    ├── index.html               單人的遊戲頁面     
+    ├── index.html               單人的遊戲說明頁面     
     ├── double.html              雙人的遊戲頁面     
-    ├── single_tutorial.html            單人遊戲說明(之後會合併到 index.html)     
+    ├── single_.html             單人遊戲遊玩頁面    
     ├── README.md                     
     ├── assets/                  素材(背景、準心、動物等)     
     │   ├── background.png

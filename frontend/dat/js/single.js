@@ -406,11 +406,49 @@ function tick(time) {
 $('answer-true').addEventListener('click', answer);
 $('restart').addEventListener('click', startGame);
 $('pause').addEventListener('click', () => {
-  paused = !paused; lastTime = undefined;
-  keys.clear(); pointerDirections.clear();
-  $('pause').textContent = paused ? '繼續' : '暫停';
-  enableAnswers(!paused && phase === 'answer' && !submitted);
+  if (phase === 'aiming' || phase === 'answer') {
+    // 1. 將單人遊戲狀態設為暫停
+    paused = true;
+    lastTime = undefined;
+    keys.clear();
+    pointerDirections.clear();
+    enableAnswers(false);
+
+    // 2. 顯示中途離開警告彈窗
+    const warningOverlay = document.getElementById('leave-warning-overlay');
+    if (warningOverlay) warningOverlay.hidden = false;
+  } else {
+    // 切換暫停 / 繼續
+    paused = !paused;
+    lastTime = undefined;
+    keys.clear(); 
+    pointerDirections.clear();
+    $('pause').textContent = paused ? '繼續' : '暫停';
+    enableAnswers(!paused && phase === 'answer' && !submitted);
+  }
 });
+//繼續遊玩
+// 點擊「繼續遊玩」按鈕時恢復遊戲
+const cancelLeaveBtn = document.getElementById('btn-cancel-leave');
+if (cancelLeaveBtn) {
+  cancelLeaveBtn.addEventListener('click', () => {
+    const warningOverlay = document.getElementById('leave-warning-overlay');
+    if (warningOverlay) warningOverlay.hidden = true;
+    
+    // 恢復遊戲
+    paused = false;
+    lastTime = undefined;
+    enableAnswers(phase === 'answer' && !submitted);
+  });
+}
+
+// 點擊「確定離開」按鈕時返回大廳/首頁
+const confirmLeaveBtn = document.getElementById('btn-confirm-leave');
+if (confirmLeaveBtn) {
+  confirmLeaveBtn.addEventListener('click', () => {
+    window.location.href = '../games.html'; // 或您頁面的首頁路徑
+  });
+}
 
 function clearInput() { keys.clear(); pointerDirections.clear(); lastTime = undefined; }
 window.addEventListener('blur', clearInput);
