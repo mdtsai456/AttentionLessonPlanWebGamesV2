@@ -319,6 +319,17 @@ button:disabled {
   font-weight: bold;
 }
 
+.primary_white {
+  padding: .5em 2em;
+  border: 3px solid #3eb549;
+  border-radius: 2em;
+  background: white;
+  color: #359d59;
+  font-size: 2cqw;
+  font-weight: bold;
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
@@ -460,7 +471,3 @@ button.secondary {
   font-size: 1.8cqw;
   cursor: pointer;
 }
-
-/* 
-button.secondary:hover { background: #65462f; }
-button.danger:hover { background: #c9302c; } */
