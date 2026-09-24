@@ -59,9 +59,15 @@ document.querySelectorAll('[data-ui="back-home"]').forEach(btn => {
 
 const btnConfirmLeave = document.getElementById('btn-confirm-leave');
 if (btnConfirmLeave) {
-  btnConfirmLeave.addEventListener('click', (e) => {
+  btnConfirmLeave.addEventListener('click', async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    // 1. 讓兩位玩家 (Player 1 與 Player 2) 各自上傳中途離開的數據
+    if (players && players.length > 0) {
+      await Promise.all(players.map(p => p.submitMidGameLeave && p.submitMidGameLeave()));
+    }
+
+    // 2. 完成數據上傳後安全跳轉回大廳/首頁
     safeNavigateTo('../games.html');
   });
 }
