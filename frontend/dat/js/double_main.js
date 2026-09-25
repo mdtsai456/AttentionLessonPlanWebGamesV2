@@ -72,7 +72,7 @@ if (btnConfirmLeave) {
   });
 }
 
-Promise.all(['assets/background.png', 'assets/crosshair.png', 'assets/animals/rabbit.png'].map((src) =>
+Promise.all(['assets/double_background.png', 'assets/crosshair.png', 'assets/animals/rabbit.png'].map((src) =>
   new Promise((resolve, reject) => {
     const image = new Image();
     image.onload = () => resolve(image);

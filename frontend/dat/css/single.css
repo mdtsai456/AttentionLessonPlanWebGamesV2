@@ -35,7 +35,7 @@ button:focus-visible {
   aspect-ratio: 1672 / 941;
   overflow: hidden;
   container-type: inline-size;
-  background: #ffd39d url("../assets/background.png") center / 100% 100% no-repeat;
+  background: #ffd39d url("../assets/single_background.png") center / 100% 100% no-repeat;
 }
 
 /* 左側進度條 */
