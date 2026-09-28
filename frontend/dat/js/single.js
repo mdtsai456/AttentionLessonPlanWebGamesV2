@@ -31,7 +31,6 @@ let isFirstAim = true; //判斷瞄準動物之後開始計時
 const STAGE_COUNT = isPractice ? 1 : 2; //FIXME: 註解 稍微改一下
 const QUESTIONS_PER_STAGE = isPractice ? 2 : 3;
 function startGame() {
-  // 設定題數：練習模式 5 題，正式模式固定 15 題
   gameStartTime = Date.now();
   const totalQuestions = STAGE_COUNT * QUESTIONS_PER_STAGE;
   questions = generateRandomQuestions(totalQuestions);
@@ -148,15 +147,6 @@ function recordResult(pressed) {
   updateProgress();
 }
 
-function showStageClearModal(completedStage) {
-  phase = 'stage_clear'; // 暫停遊戲邏輯狀態
-  keys.clear();
-  pointerDirections.clear();
-  
-  $('stage-clear-title').textContent = `第 ${completedStage} 關結束`;
-  $('stage-clear-modal').hidden = false;
-}
-
 // 點擊「繼續」進入下一關
 $('btn-next-stage').addEventListener('click', () => {
   $('stage-clear-modal').hidden = true;
@@ -173,15 +163,16 @@ $('btn-next-stage').addEventListener('click', () => {
   enableAnswers(false);
 });
 
+
 function endQuestion() {
   if (!submitted) recordResult(false);
   index++;
 
   if (index < questions.length) {
-    // 當剛好做完一關時
+    // 當剛好做完一關時，進入過場瞄準
     if (!isPractice && index % QUESTIONS_PER_STAGE === 0) {
-      const completedStage = index / QUESTIONS_PER_STAGE;
-      showStageClearModal(completedStage); 
+      const nextStage = (index / QUESTIONS_PER_STAGE) + 1;
+      enterStageTransition(nextStage);
     } else {
       updateProgress();
       showQuestion();
@@ -191,6 +182,32 @@ function endQuestion() {
     finishGame();
   }
 }
+
+// 過場處理：重置狀態並提示重新瞄準
+function enterStageTransition(nextStage) {
+  phase = 'aiming';
+  lastTime = undefined;
+  keys.clear();
+  pointerDirections.clear();
+
+  // 重置準心與動物位置
+  aim = { x: 25, y: 50 };
+  animal = { x: 55, y: 50, vx: 1, vy: .7 };
+
+  // 過場提示文字
+  $('question-type').textContent = `第 ${nextStage} 關過場`;
+  $('question-text').textContent = '🎯 請移動準心重新瞄準動物';
+  $('question-text').style.color = '#a253d5';
+  $('time-text').textContent = '尚未開始';
+  $('time-fill').style.width = '100\%';$('feedback').textContent = `恭喜通過第 ${nextStage - 1} 關！請重新瞄準動物`;
+  $('animal').dataset.result = '';
+
+  enableAnswers(false);
+  updateProgress();
+  renderPositions();
+}
+
+
 
 // 寫入後端 API (預留介面)
 // 寫入中介平台 / 資料庫 API
