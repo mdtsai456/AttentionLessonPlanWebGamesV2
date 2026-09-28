@@ -1,5 +1,7 @@
 // js/questions.js
+/*
 
+*/ 
 export const COLOR_POOL = [
   { name: '紅色', hex: '#c52c35' },
   { name: '藍色', hex: '#215cc1' },
@@ -37,6 +39,7 @@ export function generateMathQuestion() {
   const isCorrect = Math.random() < 0.5;
   let shown = correct;
   if (!isCorrect) {
+    //避免出現負數答案
     const offsets = [-2, -1, 1, 2].filter((n) => correct + n >= 0);
     shown = correct + pickRandom(offsets);
   }

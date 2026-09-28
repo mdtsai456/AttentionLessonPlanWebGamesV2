@@ -40,9 +40,8 @@ function preventLeaveHandler(event) {
   event.preventDefault();
   event.returnValue = '';
 }
-
+//設置 beforeunload 事件監聽器，防止玩家在遊戲進行中意外離開頁面
 window.addEventListener('beforeunload', preventLeaveHandler);
-
 export function safeNavigateTo(url) {
   window.removeEventListener('beforeunload', preventLeaveHandler);
   window.onbeforeunload = null;

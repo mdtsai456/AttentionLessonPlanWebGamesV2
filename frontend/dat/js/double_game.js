@@ -96,7 +96,8 @@ export function createPlayer(element, bindings, answerCodes, answerLabel, player
     $('feedback').textContent = '將準心移到動物身上，開始遊戲';
     $('animal').dataset.result = '';
     enableAnswers(false);
-    updateProgress(); renderPositions();
+    updateProgress(); 
+    renderPositions();
   }
 
   function resetPlayerState(resetScore = true) {
@@ -215,7 +216,8 @@ export function createPlayer(element, bindings, answerCodes, answerLabel, player
           $('feedback').textContent = `恭喜通過第 ${currentStage - 1} 關！請重新瞄準動物`;
           $('animal').dataset.result = '';
           enableAnswers(false);
-          updateProgress(); renderPositions();
+          updateProgress(); 
+          renderPositions();
         } else {
           finishGame();
         }
@@ -299,33 +301,7 @@ export function createPlayer(element, bindings, answerCodes, answerLabel, player
     $('accuracy').textContent = `總得分率 ${Math.round(accuracyValue * 100)}%`;
     $('results').hidden = false;
 
-    // const isP1 = (playerIndex === 0);
-    // const studentKey = sessionStorage.getItem(isP1 ? "student1_key" : "student2_key") || (isP1 ? "S01" : "S02");
-    // const schoolKey  = sessionStorage.getItem(isP1 ? "student1_school" : "student2_school") || "KMU";
-    // const gradeKey   = sessionStorage.getItem(isP1 ? "student1_grade" : "student2_grade") || "G1";
-    // const currentDay = parseInt(sessionStorage.getItem("current_day") || "1", 10);
-
-    // const payload = {
-    //   lessonId: "1140908_DAT",
-    //   data: {
-    //     grade: gradeKey,
-    //     caseId: studentKey,
-    //     school: schoolKey,
-    //     currentDay: currentDay,
-    //     startTime: startTimeMs,
-    //     endTime: endTimeMs,
-    //     mode: "double",
-    //     pairId: getState().currentGamePairId,
-    //     stats: [
-    //       { apiname: "DAT_correct",  value: score },
-    //       { apiname: "DAT_wrong",    value: wrong },
-    //       { apiname: "DAT_accuracy", value: accuracyValue },
-    //       { apiname: "DAT_duration", value: durationMs },
-    //       { apiname: "DAT_stage",    value: TOTAL_STAGES }
-    //     ]
-    //   }
-    // };
-// ------------------------------------------------------------------
+ // ------------------------------------------------------------------
   // 1. 判斷目前是哪位學生（playerIndex: 0 讀取學生一，1 讀取學生二）
   // ------------------------------------------------------------------
   const isP1 = (playerIndex === 0);
@@ -379,7 +355,7 @@ export function createPlayer(element, bindings, answerCodes, answerLabel, player
     }
     renderPositions();
   }
-
+//tick function for game loop
   function tick(time) {
     const delta = lastTime === undefined ? 0 : Math.max(0, time - lastTime);
     lastTime = time;
