@@ -28,7 +28,7 @@ const animalPixels = { width: 128, height: 128, rows: RABBIT_HIT_MASK };
 let gameStartTime = 0; // 遊戲開始時間 (Unix 毫秒)
 
 let isFirstAim = true; //判斷瞄準動物之後開始計時
-const STAGE_COUNT = isPractice ? 1 : 2;
+const STAGE_COUNT = isPractice ? 1 : 2; //FIXME: 註解 稍微改一下
 const QUESTIONS_PER_STAGE = isPractice ? 2 : 3;
 function startGame() {
   // 設定題數：練習模式 5 題，正式模式固定 15 題
@@ -81,7 +81,7 @@ function updateProgress() {
     $('round').textContent = `第 ${currentQuestionInStage} / ${QUESTIONS_PER_STAGE} 題 (第 ${currentStage} / ${STAGE_COUNT} 關)`;
   }
 
-  // 左側整體進度條更新 (按總進度 60 題比例計算)
+  // 左側整體進度條更新 
   $('progress').setAttribute('aria-valuemax', questions.length);
   $('progress').setAttribute('aria-valuenow', index);
   $('progress-fill').style.height = `${(index / questions.length) * 100}%`;

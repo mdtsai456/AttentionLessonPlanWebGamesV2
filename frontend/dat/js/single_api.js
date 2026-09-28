@@ -1,4 +1,3 @@
-//待分離 single api
 export async function saveGameDataToBackend(data) {
   const url = "http://127.0.0.1:5001/api/sessions";
   //const url = "https://attention-lesson-plan-transfer-data.zeabur.app/api/sessions";

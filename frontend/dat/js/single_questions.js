@@ -1,6 +1,6 @@
-
 //隨機的題目生成
 // 色名與代表顏色的 Hex 碼對照
+//FIXME: 跟 double 共用，整理成同一個
 const COLOR_OPTIONS = [
   { name: '紅色', code: '#c52c35' },
   { name: '藍色', code: '#1e88e5' },
@@ -17,7 +17,7 @@ function generateColorQuestion() {
   let colorObj = textObj;
 
   if (!isTrue) {
-    // 當答案為假時，從剩餘顏色中挑選一個不同的字色
+    // 當答案為錯誤時，從剩餘顏色中挑選一個不同的字色
     const otherColors = COLOR_OPTIONS.filter(c => c.name !== textObj.name);
     colorObj = otherColors[Math.floor(Math.random() * otherColors.length)];
   }
