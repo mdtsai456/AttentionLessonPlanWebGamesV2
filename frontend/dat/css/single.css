@@ -427,10 +427,7 @@ button:disabled {
   transition: background 0.2s;
 }
 
-.btn-continue:hover {
-  background: #43a047;
-}
-
+.btn-continue:hover { background: #43a047;}
 .btn-danger {
   background: #d9534f;
   color: white;
@@ -442,7 +439,7 @@ button:disabled {
   font-weight: bold;
   transition: background 0.2s;
 }
-
+.btn-danger:hover { background: #c9302c; }
 
 /* ----------------------------------
    中途離開警示彈窗與按鈕樣式
@@ -460,14 +457,4 @@ button:disabled {
   justify-content: center;
   gap: 1.5cqw;
   margin-top: 1.5cqw;
-}
-
-button.secondary {
-  background: #8c5828;
-  color: #fff;
-  border: none;
-  padding: 0.6em 1.5em;
-  border-radius: 1cqw;
-  font-size: 1.8cqw;
-  cursor: pointer;
 }
